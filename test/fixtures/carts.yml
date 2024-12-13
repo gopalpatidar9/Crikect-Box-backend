@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team_number: 1
+  odd_type: MyString
+  odd_value: 1.5
+  team_name: MyString
+  team_id: 1
+  mid: 1
+  amount: 9.99
+  user: one
+  match_title: MyString
+  live_odds_type: one
+  match: one
+
+two:
+  team_number: 1
+  odd_type: MyString
+  odd_value: 1.5
+  team_name: MyString
+  team_id: 1
+  mid: 1
+  amount: 9.99
+  user: two
+  match_title: MyString
+  live_odds_type: two
+  match: two

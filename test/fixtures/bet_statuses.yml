@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  : MyString
+  order: MyString
+  : 1
+  is_active: MyString
+  : false
+
+two:
+  name: MyString
+  : MyString
+  order: MyString
+  : 1
+  is_active: MyString
+  : false

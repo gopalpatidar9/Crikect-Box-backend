@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mid: 1
+  title: MyString
+  status: false
+  status_str: MyString
+  status_note: MyString
+  odds_available: false
+  start_time: 2024-07-29 16:42:30
+  end_time: 2024-07-29 16:42:30
+  result: MyString
+  win_margin: 1.5
+  winning_team_id: 1
+  latest_inning_number: 1
+  competition: one
+
+two:
+  mid: 1
+  title: MyString
+  status: false
+  status_str: MyString
+  status_note: MyString
+  odds_available: false
+  start_time: 2024-07-29 16:42:30
+  end_time: 2024-07-29 16:42:30
+  result: MyString
+  win_margin: 1.5
+  winning_team_id: 1
+  latest_inning_number: 1
+  competition: two

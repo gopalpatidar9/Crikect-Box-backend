@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 1.5
+  user: one
+  parent_user_id: 1
+  message: MyText
+  depositreqeststatus: one
+  last_updated: 2024-07-29 19:13:40
+
+two:
+  amount: 1.5
+  user: two
+  parent_user_id: 1
+  message: MyText
+  depositreqeststatus: two
+  last_updated: 2024-07-29 19:13:40

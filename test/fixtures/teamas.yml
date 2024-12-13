@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tid: 1
+  name: MyString
+  short_name: MyString
+  logoUrl: MyString
+  scores_full: 1
+  scores: 1
+  overs: 1
+  match: one
+  mid: 1
+
+two:
+  tid: 1
+  name: MyString
+  short_name: MyString
+  logoUrl: MyString
+  scores_full: 1
+  scores: 1
+  overs: 1
+  match: two
+  mid: 1

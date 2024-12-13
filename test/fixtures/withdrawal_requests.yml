@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  order: 1
+  is_active: false
+  WithdrawalRequestStatus: one
+  Request_datetime: 2024-07-30 10:33:02
+  response_datetime: 2024-07-30 10:33:02
+
+two:
+  name: MyString
+  order: 1
+  is_active: false
+  WithdrawalRequestStatus: two
+  Request_datetime: 2024-07-30 10:33:02
+  response_datetime: 2024-07-30 10:33:02

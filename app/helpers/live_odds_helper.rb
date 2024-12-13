@@ -1,0 +1,2 @@
+module LiveOddsHelper
+end

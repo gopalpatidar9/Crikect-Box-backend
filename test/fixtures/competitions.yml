@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cid: 1
+  title: 1
+  abbr: MyString
+  category: MyString
+  status: false
+  game_formate: MyString
+  seasion: 1
+  date_start: 2024-07-29 16:19:14
+  date_end: 2024-07-29 16:19:14
+  country: MyString
+  total_matches: 1
+  total_rounds: 1
+  total_teams: 1
+
+two:
+  cid: 1
+  title: 1
+  abbr: MyString
+  category: MyString
+  status: false
+  game_formate: MyString
+  seasion: 1
+  date_start: 2024-07-29 16:19:14
+  date_end: 2024-07-29 16:19:14
+  country: MyString
+  total_matches: 1
+  total_rounds: 1
+  total_teams: 1

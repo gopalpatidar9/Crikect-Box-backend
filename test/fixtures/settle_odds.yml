@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team_batting: MyString
+  title: MyString
+  back_condition: MyString
+  back: 1.5
+  lay_condition: MyString
+  lay: 1.5
+  status: false
+  settle: MyString
+  settle_type: MyString
+  settle_titme: 2024-07-29 18:00:33
+  verified: false
+  verified_time: 2024-07-29 18:00:33
+  question_id: 1
+  match: one
+
+two:
+  team_batting: MyString
+  title: MyString
+  back_condition: MyString
+  back: 1.5
+  lay_condition: MyString
+  lay: 1.5
+  status: false
+  settle: MyString
+  settle_type: MyString
+  settle_titme: 2024-07-29 18:00:33
+  verified: false
+  verified_time: 2024-07-29 18:00:33
+  question_id: 1
+  match: two

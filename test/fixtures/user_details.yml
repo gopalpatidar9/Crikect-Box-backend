@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  parentuserid: 1
+  profilepicture: MyString
+  depositrequestenabled: false
+  chatsenabled: false
+  CanAddUser: false
+  BetEnabled: false
+  user: one
+
+two:
+  parentuserid: 1
+  profilepicture: MyString
+  depositrequestenabled: false
+  chatsenabled: false
+  CanAddUser: false
+  BetEnabled: false
+  user: two
