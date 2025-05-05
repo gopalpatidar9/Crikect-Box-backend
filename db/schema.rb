@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
+ActiveRecord::Schema[7.0].define(version: 2025_05_05_053845) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -55,11 +58,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
     t.integer "team_id"
     t.integer "mid"
     t.decimal "amount"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "match_title"
-    t.integer "bet_status_id", null: false
+    t.bigint "bet_status_id", null: false
     t.decimal "potential_payout"
-    t.integer "live_odds_type_id", null: false
+    t.bigint "live_odds_type_id", null: false
     t.integer "match_id"
     t.datetime "completed_at"
     t.datetime "created_at", null: false
@@ -70,7 +73,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
   end
 
   create_table "billing_preferences", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.float "commission_percentahe"
     t.integer "monthly_fee"
     t.boolean "payment_gateway_activated"
@@ -89,10 +92,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
     t.integer "team_id"
     t.integer "mid"
     t.decimal "amount"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "match_title"
-    t.integer "live_odds_type_id", null: false
-    t.integer "match_id", null: false
+    t.bigint "live_odds_type_id", null: false
+    t.bigint "match_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["live_odds_type_id"], name: "index_carts_on_live_odds_type_id"
@@ -101,8 +104,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
   end
 
   create_table "chat_room_users", force: :cascade do |t|
-    t.integer "chat_room_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "chat_room_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["chat_room_id"], name: "index_chat_room_users_on_chat_room_id"
@@ -143,13 +146,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
 
   create_table "deposit_requests", force: :cascade do |t|
     t.float "amount"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.integer "parent_user_id"
     t.text "message"
+    t.bigint "deposit_request_status_id", null: false
     t.datetime "last_updated"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "deposit_request_status_id", null: false
     t.index ["deposit_request_status_id"], name: "index_deposit_requests_on_deposit_request_status_id"
     t.index ["user_id"], name: "index_deposit_requests_on_user_id"
   end
@@ -171,6 +174,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
   create_table "matches", force: :cascade do |t|
     t.integer "mid"
     t.string "title"
+    t.bigint "match_status_id", null: false
     t.string "status_str"
     t.string "status_note"
     t.boolean "odds_available"
@@ -180,17 +184,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
     t.string "win_margin"
     t.integer "winning_team_id"
     t.integer "latest_inning_number"
-    t.integer "competition_id", null: false
+    t.bigint "competition_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "match_status_id", null: false
     t.index ["competition_id"], name: "index_matches_on_competition_id"
     t.index ["match_status_id"], name: "index_matches_on_match_status_id"
   end
 
   create_table "messages", force: :cascade do |t|
-    t.integer "chat_room_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "chat_room_id", null: false
+    t.bigint "user_id", null: false
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -237,7 +240,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
     t.boolean "verified"
     t.datetime "verified_time"
     t.integer "question_id"
-    t.integer "match_id", null: false
+    t.bigint "match_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["match_id"], name: "index_settle_odds_on_match_id"
@@ -249,7 +252,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
     t.float "lay"
     t.float "back_volume"
     t.float "lay_volume"
-    t.integer "match_id", null: false
+    t.bigint "match_id", null: false
     t.integer "mid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -264,7 +267,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
     t.integer "scores_full"
     t.integer "scores"
     t.integer "overs"
-    t.integer "match_id", null: false
+    t.bigint "match_id", null: false
     t.integer "mid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -277,7 +280,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
     t.float "lay"
     t.float "back_volume"
     t.float "lay_volume"
-    t.integer "match_id", null: false
+    t.bigint "match_id", null: false
     t.integer "mid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -292,7 +295,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
     t.integer "scores_full"
     t.integer "scores"
     t.integer "overs"
-    t.integer "match_id", null: false
+    t.bigint "match_id", null: false
     t.integer "mid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -308,9 +311,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "wallet_id", null: false
-    t.integer "transaction_type_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "wallet_id", null: false
+    t.bigint "transaction_type_id", null: false
     t.float "amount"
     t.text "description"
     t.integer "bet_id"
@@ -329,15 +332,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
     t.boolean "chats_enabled"
     t.boolean "can_add_user"
     t.boolean "bet_enabled"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_user_details_on_user_id"
   end
 
   create_table "user_roles", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "role_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "role_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["role_id"], name: "index_user_roles_on_role_id"
@@ -374,7 +377,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
   end
 
   create_table "wallets", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.float "balance"
     t.datetime "lastupdated"
     t.datetime "created_at", null: false
@@ -394,12 +397,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
     t.string "name"
     t.integer "order"
     t.boolean "is_active"
+    t.bigint "withdrawal_request_statuses_id", null: false
     t.datetime "Request_datetime"
     t.datetime "response_datetime"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "withdrawal_request_status_id", null: false
+    t.bigint "withdrawal_request_status_id", null: false
     t.index ["withdrawal_request_status_id"], name: "index_withdrawal_requests_on_withdrawal_request_status_id"
+    t.index ["withdrawal_request_statuses_id"], name: "index_withdrawal_requests_on_withdrawal_request_statuses_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -407,14 +412,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
   add_foreign_key "bets", "bet_statuses"
   add_foreign_key "bets", "live_odds_types"
   add_foreign_key "bets", "users"
-  add_foreign_key "billing_preferences", "users"
   add_foreign_key "carts", "live_odds_types"
   add_foreign_key "carts", "matches"
   add_foreign_key "carts", "users"
   add_foreign_key "chat_room_users", "chat_rooms"
   add_foreign_key "chat_room_users", "users"
   add_foreign_key "deposit_requests", "deposit_request_statuses"
-  add_foreign_key "deposit_requests", "users"
   add_foreign_key "matches", "competitions"
   add_foreign_key "matches", "match_statuses"
   add_foreign_key "messages", "chat_rooms"
@@ -427,11 +430,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_144022) do
   add_foreign_key "teamb_odds", "matches"
   add_foreign_key "teambs", "matches"
   add_foreign_key "transactions", "transaction_types"
-  add_foreign_key "transactions", "users"
   add_foreign_key "transactions", "wallets"
-  add_foreign_key "user_details", "users"
   add_foreign_key "user_roles", "roles"
-  add_foreign_key "user_roles", "users"
-  add_foreign_key "wallets", "users"
   add_foreign_key "withdrawal_requests", "withdrawal_request_statuses"
+  add_foreign_key "withdrawal_requests", "withdrawal_request_statuses", column: "withdrawal_request_statuses_id"
 end
