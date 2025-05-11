@@ -5,6 +5,11 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+unless Organization.exists?(name: "cricket-box")
+  Organization.create!(
+    name: "cricket-box",
+  )
+end
 
 MatchStatus.create(name: "Scheduled" , order: 1 , is_active: true)
 MatchStatus.create(name: "Completed" , order: 2 , is_active: true)

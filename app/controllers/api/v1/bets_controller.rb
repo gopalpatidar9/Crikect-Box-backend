@@ -45,8 +45,7 @@ class Api::V1::BetsController < ApplicationController
   end
 
   def bet_params
-    params.require(:bet).permit
-    (
+    params.require(:bet).permit(
       :team_number, :odd_type, :odd_value,
       :team_name, :team_id, :mid, :amount,
       :match_title, :bet_status, :live_odds_type,
