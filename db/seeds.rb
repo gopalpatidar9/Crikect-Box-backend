@@ -6,10 +6,13 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 unless Organization.exists?(name: "cricket-box")
-  Organization.create!(
+  org = Organization.create!(
     name: "cricket-box",
+    database: "cricket_box"  # schema name used by Apartment (no hyphens!)
   )
+  Apartment::Tenant.create(org.database)
 end
+
 
 MatchStatus.create(name: "Scheduled" , order: 1 , is_active: true)
 MatchStatus.create(name: "Completed" , order: 2 , is_active: true)
