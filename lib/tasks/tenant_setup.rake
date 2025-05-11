@@ -7,11 +7,11 @@ namespace :tenant do
         schema = org.database.presence || org.name.parameterize.underscore
         next if schema.blank?
   
-        if Apartment.tenant_names.exclude?(schema)
+        begin
           puts "Creating tenant schema for '#{schema}'..."
           Apartment::Tenant.create(schema)
-        else
-          puts "Tenant schema '#{schema}' already exists. Skipping creation."
+        rescue Apartment::TenantExists => e
+          puts "Schema '#{schema}' already exists. Skipping creation."
         end
   
         Apartment::Tenant.switch(schema) do
@@ -27,10 +27,7 @@ namespace :tenant do
           migration_context.migrate
   
           puts "Seeding schema '#{schema}'..."
-          # You can either call a custom seed file per tenant:
-          # load Rails.root.join('db/seeds/tenant.rb')
-          #
-          # Or reuse the default seed file:
+          # Use default or custom seed
           load Rails.root.join('db/seeds.rb')
         end
       end
