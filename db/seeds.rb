@@ -57,5 +57,8 @@ Organization.find_each do |org|
     TransactionType.find_or_create_by(name: 'Deposit')    { |s| s.order = 2; s.is_active = true }
     TransactionType.find_or_create_by(name: 'Withdrawal') { |s| s.order = 3; s.is_active = true }
     TransactionType.find_or_create_by(name: 'Win')        { |s| s.order = 4; s.is_active = true }
+
+    ActiveRecord::Migrator.migrations_paths = ['db/migrate']
+    ActiveRecord::MigrationContext.new('db/migrate', ActiveRecord::SchemaMigration).migrate
   end
 end
