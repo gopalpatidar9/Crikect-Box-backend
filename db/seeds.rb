@@ -8,7 +8,7 @@
 unless Organization.exists?(name: "cricket-box")
   org = Organization.create!(
     name: "cricket-box",
-    database: "cricket_box"  # schema name used by Apartment (no hyphens!)
+    database: "crikect_box_backend"  # schema name used by Apartment (no hyphens!)
   )
   Apartment::Tenant.create(org.database)
 end
