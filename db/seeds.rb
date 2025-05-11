@@ -1,49 +1,61 @@
 Organization.find_each do |org|
-  schema = org.database
+  schema = org.database.presence || org.name.parameterize.underscore
+  next if schema.blank?  # Guard against any bad data
 
   unless Apartment.tenant_names.include?(schema)
     Apartment::Tenant.create(schema)
   end
 
   Apartment::Tenant.switch!(schema) do
-    MatchStatus.create(name: "Scheduled", order: 1, is_active: true)
-    MatchStatus.create(name: "Completed", order: 2, is_active: true)
-    MatchStatus.create(name: "Live", order: 3, is_active: true)
-    MatchStatus.create(name: "Canceled", order: 4, is_active: true)
+    MatchStatus.find_or_create_by(name: "Scheduled") { |s| s.order = 1; s.is_active = true }
+    MatchStatus.find_or_create_by(name: "Completed") { |s| s.order = 2; s.is_active = true }
+    MatchStatus.find_or_create_by(name: "Live")      { |s| s.order = 3; s.is_active = true }
+    MatchStatus.find_or_create_by(name: "Canceled")  { |s| s.order = 4; s.is_active = true }
 
-    Role.create(name: "SuperAdmin")
-    Role.create(name: "Admin")
-    Role.create(name: "User")
+    Role.find_or_create_by(name: "SuperAdmin")
+    Role.find_or_create_by(name: "Admin")
+    Role.find_or_create_by(name: "User")
 
-    LiveOddsType.create(odds_type: "matchodds")
-    LiveOddsType.create(odds_type: "tiedmatch")
-    LiveOddsType.create(odds_type: "bookmaker")
+    LiveOddsType.find_or_create_by(odds_type: "matchodds")
+    LiveOddsType.find_or_create_by(odds_type: "tiedmatch")
+    LiveOddsType.find_or_create_by(odds_type: "bookmaker")
 
-    superadmin_default_password = 'superadmin123'
-    user = User.create!(
-      name: "SuperAdmin",
-      email: "superadmin123@gmail.com",
-      password: superadmin_default_password,
-      password_confirmation: superadmin_default_password
-    )
+    user = User.find_or_create_by(email: "superadmin123@gmail.com") do |u|
+      u.name = "SuperAdmin"
+      u.password = 'superadmin123'
+      u.password_confirmation = 'superadmin123'
+    end
 
     role = Role.find_by(name: 'SuperAdmin')
-    UserRole.create(user_id: user.id, role_id: role.id)
-    Wallet.create(user_id: user.id, balance: 0, lastupdated: Time.now)
-    UserDetail.create(user_id: user.id, deposit_request_enabled: true,
-                      chats_enabled: true, can_add_user: true, bet_enabled: true)
+    if role.present?
+      UserRole.find_or_create_by(user_id: user.id, role_id: role.id)
+    else
+      Rails.logger.warn "SuperAdmin role not found while seeding user role"
+    end
 
-    DepositRequestStatus.create(name: 'Approve', order: 1, is_active: true)
-    DepositRequestStatus.create(name: 'Pending', order: 2, is_active: true)
-    DepositRequestStatus.create(name: 'Rejected', order: 3, is_active: true)
+    Wallet.find_or_create_by(user_id: user.id) do |w|
+      w.balance = 0
+      w.lastupdated = Time.now
+    end
 
-    BetStatus.create(name: 'Pending', order: 1, is_active: true)
-    BetStatus.create(name: 'Completed', order: 2, is_active: true)
-    BetStatus.create(name: 'Cancel', order: 3, is_active: true)
+    UserDetail.find_or_create_by(user_id: user.id) do |ud|
+      ud.deposit_request_enabled = true
+      ud.chats_enabled = true
+      ud.can_add_user = true
+      ud.bet_enabled = true
+    end
 
-    TransactionType.create(name: 'Bet', order: 1, is_active: true)
-    TransactionType.create(name: 'Deposit', order: 2, is_active: true)
-    TransactionType.create(name: 'Withdrawal', order: 3, is_active: true)
-    TransactionType.create(name: 'Win', order: 4, is_active: true)
+    DepositRequestStatus.find_or_create_by(name: 'Approve') { |s| s.order = 1; s.is_active = true }
+    DepositRequestStatus.find_or_create_by(name: 'Pending') { |s| s.order = 2; s.is_active = true }
+    DepositRequestStatus.find_or_create_by(name: 'Rejected'){ |s| s.order = 3; s.is_active = true }
+
+    BetStatus.find_or_create_by(name: 'Pending')   { |s| s.order = 1; s.is_active = true }
+    BetStatus.find_or_create_by(name: 'Completed') { |s| s.order = 2; s.is_active = true }
+    BetStatus.find_or_create_by(name: 'Cancel')    { |s| s.order = 3; s.is_active = true }
+
+    TransactionType.find_or_create_by(name: 'Bet')        { |s| s.order = 1; s.is_active = true }
+    TransactionType.find_or_create_by(name: 'Deposit')    { |s| s.order = 2; s.is_active = true }
+    TransactionType.find_or_create_by(name: 'Withdrawal') { |s| s.order = 3; s.is_active = true }
+    TransactionType.find_or_create_by(name: 'Win')        { |s| s.order = 4; s.is_active = true }
   end
 end
