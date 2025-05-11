@@ -1,18 +1,15 @@
 class Organization < ApplicationRecord
-    after_create :create_tenant
+  after_create :create_tenant
 
-    def create_tenant
-      schema_name = name.parameterize.underscore  # Ensures no spaces or invalid chars
-    
-      unless Apartment.tenant_names.include?(schema_name)
-        Apartment::Tenant.create(schema_name)
-      else
-        Rails.logger.info "Tenant #{schema_name} already exists"
-      end
+  def create_tenant
+    schema_name = self.database.presence || name.parameterize.underscore
+    self.update_column(:database, schema_name) unless self.database.present?
+
+    unless Apartment.tenant_names.include?(schema_name)
+      Apartment::Tenant.create(schema_name)
+    else
+      Rails.logger.info "Tenant #{schema_name} already exists"
     end
-    
-    def database
-      name.parameterize.underscore
-    end
+  end
      
 end

@@ -13,10 +13,8 @@ require 'apartment/elevators/subdomain'
 #
 # Apartment Configuration
 #
-Apartment.configure do |config|
-  
-  config.tenant_names = -> { Organization.pluck :name }
-   
+Apartment.configure do |config| 
+  config.tenant_names = -> { Organization.pluck(:database) }   
 end
 
 # Rails.application.config.middleware.use Apartment::Elevators::Domain
