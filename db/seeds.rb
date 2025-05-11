@@ -13,6 +13,19 @@
 #   Apartment::Tenant.create(org.database)
 # end
 
+Organization.find_each do |org|
+  schema = org.name.parameterize.underscore
+
+  unless Apartment.tenant_names.include?(schema)
+    Apartment::Tenant.create(schema)
+  end
+
+  Apartment::Tenant.switch!(schema) do
+    # Run seeds or migrations
+  end
+end
+
+
 
 MatchStatus.create(name: "Scheduled" , order: 1 , is_active: true)
 MatchStatus.create(name: "Completed" , order: 2 , is_active: true)
