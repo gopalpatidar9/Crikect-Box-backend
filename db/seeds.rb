@@ -1,5 +1,5 @@
 Organization.find_each do |org|
-  schema = org.database.presence || org.name.parameterize.underscore
+  schema = (org.database.presence || org.name).parameterize.underscore
   next if schema.blank?  # Guard against any bad data
 
   unless Apartment.tenant_names.include?(schema)

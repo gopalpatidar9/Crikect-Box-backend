@@ -4,7 +4,7 @@ namespace :tenant do
       require 'active_record/tasks/database_tasks'
   
       Organization.find_each do |org|
-        schema = org.database.presence || org.name.parameterize.underscore
+        schema = (org.database.presence || org.name).parameterize.underscore
         next if schema.blank?
   
         begin
