@@ -1,10 +1,11 @@
+# config/initializers/cors.rb
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins 'http://localhost:3000'  # Allow your frontend
+      origins 'http://localhost:3000', 'https://crikect-box-backend.onrender.com'  # Allow both localhost and deployed app
       resource '*', 
         headers: :any, 
         methods: [:get, :post, :put, :patch, :delete, :options, :head],
-        credentials: true  # Allows credentials (cookies, auth tokens, etc.)
+        credentials: true  # Allow credentials (cookies, auth tokens, etc.)
     end
 end
   
