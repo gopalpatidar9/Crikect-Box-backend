@@ -8,22 +8,22 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: gopal
-  password: gopal123
+  username: <%= ENV['DEVELOPMENT_POSTGRES_USER']%>
+  password: <%= ENV['DEVELOPMENT_POSTGRES_PASSWORD']%>
   host: localhost
   timeout: 5000
 
 development:
   <<: *default
-  database: cloud-market-backend-development
+  database: cricket-box-backend-development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: cloud-market-backend-test
+  database: cricket-box-backend-test
 
 production:
-  <<: *default
   url: <%= ENV['DATABASE_URL'] %>
+  sslmode: require
