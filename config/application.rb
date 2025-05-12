@@ -1,3 +1,4 @@
+
 require_relative "boot"
 
 require "rails/all"
@@ -12,22 +13,21 @@ module CricketBoxBackend
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
     config.autoload_paths += %W(#{config.root}/app/serializers)
-
-    # CORS configuration
     config.middleware.use Rack::Cors do
       allow do
-        # Allow specific origins (localhost:3000 for development and your production URL)
-        origins 'http://localhost:3000', 'https://crikect-box-backend.onrender.com'
-
-        # Allow all resources (e.g., API endpoints)
+        origins '*'
         resource '*',
-          headers: :any,
-          expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
-          methods: [:get, :post, :options, :delete, :put],
-          credentials: true  # Allow cookies/authentication tokens with requests
+          :headers => :any,
+          :expose  => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+          :methods => [:get, :post, :options, :delete, :put]
       end
     end
-
-    # Other configurations...
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = "Central Time (US & Canada)"
+    # config.eager_load_paths << Rails.root.join("extras")
   end
 end
