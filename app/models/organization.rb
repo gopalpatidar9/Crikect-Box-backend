@@ -2,7 +2,7 @@ class Organization < ApplicationRecord
     after_create :create_tenant
   
     def create_tenant
-      schema_name = self.database.presence || name.parameterize.underscore
+      schema_name = self.database.presence
       self.update_column(:database, schema_name) if self.database.blank?
   
       begin
